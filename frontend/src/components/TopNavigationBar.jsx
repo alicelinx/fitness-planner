@@ -8,7 +8,7 @@ const TopNavigationBar = ({ setRoute, isLoggedIn, logout }) => {
 
       <NavItem label="FITNESS PLANNER" toggleRoute={() => setRoute('home')} />
 
-      <NavItem label="Create Workout" />
+      <NavItem label="Create Workout" toggleRoute={() => setRoute('createWorkout')} />
 
       <NavItem label="My Workout" />
 
