@@ -1,11 +1,11 @@
 import '../styles/NavItem.scss';
-import { navItems } from '../data/mockData.js';
+import { navItems } from '../mocks/mockData.js';
 
-const NavItem = (props) => {
+const NavItem = () => {
   return (
-    <div className="nav-item">
+    <div className="top-nav-bar">
       {
-        navItems.map(item => <p>{item}</p>)
+        navItems.map(item => <p className="nav-item"> {item} </p>)
       }
     </div>
 
