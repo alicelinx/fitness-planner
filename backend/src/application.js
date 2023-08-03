@@ -21,10 +21,12 @@ app.use(cookieSession({
 
 // Routes import
 const workoutsAPI = require('./routes/workouts-api');
+const exercisesAPI = require('./routes/exercises-api');
 const login = require('./routes/login');
 
 // Use routes
 app.use('/workouts', workoutsAPI);
+app.use('/exercises', exercisesAPI);
 app.use('/login', login);
 
 app.get('/', (req, res) => {
