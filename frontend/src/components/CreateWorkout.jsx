@@ -101,6 +101,13 @@ const CreateWorkout = () => {
             <table class="table table-dark">
               <thead>
                 <tr>
+                  <th scope="col">Workout title:</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                <tr>
                   <th scope="col">Exercises</th>
                   <th scope="col">Reps</th>
                   <th scope="col">Sets</th>
