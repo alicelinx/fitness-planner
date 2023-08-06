@@ -24,10 +24,10 @@ app.use('/workouts', workoutsAPI)
 
 
 
-app.get('/', (req, res) => {
-  console.log(req.session);
-  res.render('index', { user: req.session['user'] });
-});
+// app.get('/', (req, res) => {
+//   console.log(req.session);
+//   res.render('index', { user: req.session['user'] });
+// });
 
 app.listen(PORT, () => {
   console.log(`Application listening on port ${PORT}`);

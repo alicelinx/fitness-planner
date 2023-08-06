@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const workoutsQuery = require('../db/queries/workouts.js');
+const workoutsQuery = require('../db/queries/workouts-by-id.js');
 
 
 
-router.get('/:id', (req, res) => {
-  const userID = req.session.user.id;
+router.get('/', (req, res) => {
+  // const userID = req.session.user.id;
+  userID = 1;
   workoutsQuery.getWorkoutById(userID)
     .then(data => {
-      res.json(data);
+      res.send(data);
+      // res.json(data);
     });
 });
 
