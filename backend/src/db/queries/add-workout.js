@@ -1,10 +1,10 @@
 const db = require('../connection');
 
-const getWorkoutById = (id) => {
+const addWorkout = (userId, workoutTitle) => {
   return db
     .query(`
-    SELECT * FROM workouts
-    WHERE user_id = $1`, [id])
+    INSERT INTO workouts VALUES
+    ($1, false, $3)`, [workoutTitle, userId])
     .then(data => {
       return data.rows;
     })
@@ -13,4 +13,5 @@ const getWorkoutById = (id) => {
     });
 };
 
-module.exports = { getWorkoutById };
+
+module.exports = { addWorkout };

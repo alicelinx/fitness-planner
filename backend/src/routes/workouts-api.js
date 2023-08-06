@@ -1,15 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const workoutsQuery = require('../db/queries/workouts-by-id');
+const getWorkouts = require('../db/queries/get-workout');
+const addWorkouts = require('../db/queries/add-workout');
 
 
 
 router.get('/', (req, res) => {
-  const userID = req.session.user.id;
-  workoutsQuery.getWorkoutById(userID)
+  const userId = req.session.user.id;
+  getWorkouts.getWorkoutById(userId)
     .then(data => {
       res.json(data);
     });
+});
+
+router.post('/', (req, res) => {
+  const userId = req.session.user.id;
+  const workoutTitle = req.body;
+  addWorkouts.addWorkout(userId,workoutTitle);
 });
 
 
