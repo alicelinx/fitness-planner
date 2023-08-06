@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
       return;
     }).catch(() => {
       return res.status(404).send('Unable to login, please check email/password');
-      });
+    });
 });
 
 module.exports = router;
