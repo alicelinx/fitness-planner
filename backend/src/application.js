@@ -17,17 +17,16 @@ app.use(cookieSession({
 
 // Routes import
 const workoutsAPI = require('./routes/workouts-api');
-
+const login = require('./routes/login');
 
 // Use routes
-app.use('/workouts', workoutsAPI)
+app.use('/workouts', workoutsAPI);
+app.use('/login', login);
 
-
-
-// app.get('/', (req, res) => {
-//   console.log(req.session);
-//   res.render('index', { user: req.session['user'] });
-// });
+app.get('/', (req, res) => {
+  console.log(req.session);
+  res.render('index', { user: req.session['user'] });
+});
 
 app.listen(PORT, () => {
   console.log(`Application listening on port ${PORT}`);
