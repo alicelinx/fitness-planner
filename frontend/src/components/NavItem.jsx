@@ -1,14 +1,8 @@
 import '../styles/NavItem.scss';
-import { navItems } from '../mocks/mockData.js';
 
-const NavItem = () => {
+const NavItem = ({ toggleRoute, label }) => {
   return (
-    <div className="top-nav-bar">
-      {
-        navItems.map(item => <p className="nav-item"> {item} </p>)
-      }
-    </div>
-
+    <button className="nav-item" onClick={toggleRoute}>{label}</button>
   );
 };
 
