@@ -90,6 +90,8 @@ const CreateWorkout = () => {
     setRows(updatedRows);
   };
 
+  
+
   const saveWorkout = () => {
     const workoutData = {
       title: 'Workout Title', // Replace with the actual workout title from your form
@@ -108,10 +110,6 @@ const CreateWorkout = () => {
       },
       body: JSON.stringify(workoutData),
     })
-      .then(() => document.getElementById("form").reset())
-      // .then((data) => {
-      //   console.log(data); // Handle the response data as needed
-      // })
       .catch((error) => {
         console.error('Error saving workout:', error);
       });
@@ -120,6 +118,7 @@ const CreateWorkout = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault(); 
     saveWorkout(); 
+ 
   };
 
 

@@ -16,7 +16,13 @@ router.get('/:id', (req, res) => {
 router.post('/create/:id', (req, res) => {
   const userId = req.params.id;
   console.log(req.body);
-  res.status(200);
+  
+  const title = req.body.title;
+  const exercises = req.body.exercises // array of objects
+  
+  addWorkouts.addWorkout(userId,title)
+  
+  res.sendStatus(200);
 });
 
 
