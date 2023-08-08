@@ -1,29 +1,14 @@
-const WorkoutItem = () => {
+const WorkoutItem = (props) => {
   
-  const userId = localStorage.getItem('id');
-  const getWorkoutsById = async (id) => {
-    try {
-      const workouts = await fetch('http://localhost:8080/workouts', {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id
-        }),
-      });
-      return workouts.json();
-    } catch (error) {
-      console.error({ error });
-    }
-  }
   
 
 
-  
 
   return (
-    <div></div>
+    <div className="container p-3 mt-2 d-flex flex-row justify-content-between align-items-center border border-2 border-light">
+      <h3 className="text-light">{props.title}</h3>
+      <h3 className="text-light"> Details</h3>
+    </div>
   );
 
 
