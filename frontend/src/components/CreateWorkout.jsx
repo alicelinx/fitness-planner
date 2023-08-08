@@ -117,8 +117,7 @@ const CreateWorkout = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault(); 
-    saveWorkout(); 
- 
+    saveWorkout();
   };
 
 
