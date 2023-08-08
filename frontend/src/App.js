@@ -3,6 +3,7 @@ import './App.css';
 import HomePage from './components/HomePage';
 import TopNavigationBar from './components/TopNavigationBar';
 import LoginPage from './components/LoginPage';
+import WorkoutList from './components/WorkoutList';
 
 function App() {
   const [route, setRoute] = useState('home');
@@ -25,6 +26,8 @@ function App() {
       <TopNavigationBar setRoute={setRoute} isLoggedIn={isLoggedIn} logout={logout} />
       {route === "home" && <HomePage />}
       {route === "login" && <LoginPage setRoute={setRoute} setIsLoggedIn={setIsLoggedIn} />}
+      {route === "workouts" && <WorkoutList />}
+
     </div>
   );
 }

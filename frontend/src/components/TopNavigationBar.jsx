@@ -10,7 +10,7 @@ const TopNavigationBar = ({ setRoute, isLoggedIn, logout }) => {
 
       <NavItem label="Create Workout" />
 
-      <NavItem label="My Workout" />
+      <NavItem label="My Workout" toggleRoute={() => setRoute('workouts')}/>
 
       {!isLoggedIn && <NavItem label="Login" toggleRoute={() => setRoute('login')} />}
 
