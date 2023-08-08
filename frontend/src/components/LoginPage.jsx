@@ -12,8 +12,9 @@ const LoginPage = ({ setRoute, setIsLoggedIn }) => {
           .then(data => {
             console.log(data);
             localStorage.setItem('userInfo', JSON.stringify({
+              id: data.id,
+              username: data.username,
               email: data.email,
-              id: data.id
             }));
             setIsLoggedIn(true);
             setRoute('home');

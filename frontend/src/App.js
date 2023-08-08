@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import TopNavigationBar from './components/TopNavigationBar';
 import LoginPage from './components/LoginPage';
 import CreateWorkout from './components/CreateWorkout';
+import WorkoutList from './components/WorkoutList';
 
 function App() {
   const [route, setRoute] = useState('home');
@@ -27,6 +28,7 @@ function App() {
       {route === "home" && <HomePage />}
       {route === "login" && <LoginPage setRoute={setRoute} setIsLoggedIn={setIsLoggedIn} />}
       {route === "createWorkout" && <CreateWorkout setRoute={setRoute} />}
+      {route === "workouts" && <WorkoutList />}
     </div>
   );
 }

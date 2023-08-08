@@ -5,8 +5,8 @@ const addWorkouts = require('../db/queries/add-workout');
 
 
 
-router.get('/', (req, res) => {
-  const userId = req.query.id;
+router.get('/:id', (req, res) => {
+  const userId = req.params.id;
   getWorkouts.getWorkoutById(userId)
     .then(data => {
       res.json(data);
@@ -14,9 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const userId = req.session.user.id;
-  const workoutTitle = req.body;
-  addWorkouts.addWorkout(userId, workoutTitle);
+  return;
 });
 
 
