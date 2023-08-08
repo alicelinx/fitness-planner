@@ -8,16 +8,14 @@ const TopNavigationBar = ({ setRoute, isLoggedIn, logout }) => {
 
       <NavItem label="FITNESS PLANNER" toggleRoute={() => setRoute('home')} />
 
-      <NavItem label="Create Workout" />
+      <NavItem label="Create Workout" toggleRoute={() => setRoute('createWorkout')} />
 
-      <NavItem label="My Workout" toggleRoute={() => setRoute('workouts')}/>
+      <NavItem label="My Workout" toggleRoute={() => setRoute('workouts')} />
 
       {!isLoggedIn && <NavItem label="Login" toggleRoute={() => setRoute('login')} />}
 
       {isLoggedIn && <NavItem label="Logout" toggleRoute={logout} />}
 
-
-      <NavItem label="Register" />
     </div>
   );
 };

@@ -6,8 +6,7 @@ const addWorkouts = require('../db/queries/add-workout');
 
 
 router.get('/:id', (req, res) => {
-  const userId = req.params.id
-  console.log(userId);
+  const userId = req.params.id;
   getWorkouts.getWorkoutById(Number(userId))
     .then(data => {
       res.json(data);

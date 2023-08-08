@@ -3,6 +3,7 @@ import './App.css';
 import HomePage from './components/HomePage';
 import TopNavigationBar from './components/TopNavigationBar';
 import LoginPage from './components/LoginPage';
+import CreateWorkout from './components/CreateWorkout';
 import WorkoutList from './components/WorkoutList';
 
 function App() {
@@ -10,8 +11,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const userEmail = localStorage.getItem('email');
-    if (userEmail) {
+    const userId = localStorage.getItem('id');
+    if (userId) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -19,6 +20,7 @@ function App() {
   const logout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
+    setRoute("login");
   };
 
   return (
@@ -26,8 +28,8 @@ function App() {
       <TopNavigationBar setRoute={setRoute} isLoggedIn={isLoggedIn} logout={logout} />
       {route === "home" && <HomePage />}
       {route === "login" && <LoginPage setRoute={setRoute} setIsLoggedIn={setIsLoggedIn} />}
+      {route === "createWorkout" && <CreateWorkout setRoute={setRoute} />}
       {route === "workouts" && <WorkoutList />}
-
     </div>
   );
 }
