@@ -13,8 +13,10 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-  return;
+router.post('/create/:id', (req, res) => {
+  const userId = req.params.id;
+  console.log(req.body);
+  res.status(200);
 });
 
 
