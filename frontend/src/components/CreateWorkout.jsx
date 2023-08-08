@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/CreateWorkout.scss';
 
 const CreateWorkout = () => {
+  const id = localStorage.getItem('id');
   const [exercises, setExercises] = useState([]);
   const [rows, setRows] = useState([
     {
@@ -89,6 +90,36 @@ const CreateWorkout = () => {
     setRows(updatedRows);
   };
 
+  
+
+  const saveWorkout = () => {
+    const workoutData = {
+      title: 'Workout Title', // Replace with the actual workout title from your form
+      exercises: rows.map((row) => ({
+        title: row.title,
+        reps: row.reps,
+        sets: row.sets,
+        weights: row.weights,
+      })),
+    };
+
+    fetch(`http://localhost:8080/workouts/create/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(workoutData),
+    })
+      .catch((error) => {
+        console.error('Error saving workout:', error);
+      });
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault(); 
+    saveWorkout();
+  };
+
 
   return (
     <>
@@ -96,7 +127,7 @@ const CreateWorkout = () => {
         <br></br>
         <h3>Create Workout</h3>
         <br></br>
-        <form className='create-workout-form'>
+        <form className='create-workout-form' onSubmit={handleFormSubmit} id='form'>
           <div className="create-workout-container">
             <table class="table table-dark">
               <thead>
@@ -165,7 +196,7 @@ const CreateWorkout = () => {
             <i class="fa-solid fa-trash"></i>
             <div className='create-workout-buttons'>
               <button type="button" class="btn btn-success" onClick={addRow}>Add</button>
-              <button type="button" class="btn btn-light">Save</button>
+              <button type="submit" class="btn btn-light">Save</button>
             </div>
           </div>
         </form>
