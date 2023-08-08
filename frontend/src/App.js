@@ -20,6 +20,7 @@ function App() {
   const logout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
+    setRoute("login");
   };
 
   return (
