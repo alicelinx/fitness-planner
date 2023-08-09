@@ -1,13 +1,16 @@
+import '../styles/WorkoutItem.scss';
+import Modal from '@mui/material/Modal';
+
 const WorkoutItem = (props) => {
-  
-  
+
+
 
 
 
   return (
-    <div className="container p-3 mt-2 d-flex flex-row justify-content-between align-items-center border border-2 border-light">
+    <div className="workout-item">
       <h3 className="text-light">{props.title}</h3>
-      <h3 className="text-light"> Details</h3>
+      <button type="button" className="btn btn-outline-light">Details</button>
     </div>
   );
 
