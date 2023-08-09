@@ -5,5 +5,6 @@ CREATE TABLE exercises (
   title VARCHAR(255) NOT NULL,
   set_number INT NOT NULL,
   rep_number INT NOT NULL,
-  weight_number INT NOT NULL
+  weight_number INT NOT NULL,
+  workout_id INT NOT NULL
 );
