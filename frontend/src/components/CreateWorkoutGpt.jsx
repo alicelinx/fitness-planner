@@ -410,7 +410,7 @@ const CreateWorkoutGpt = () => {
 export default CreateWorkoutGpt;
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
