@@ -5,7 +5,9 @@ import { css } from "@emotion/react";
 import { BeatLoader } from "react-spinners";
 
 const CreateWorkoutGpt = () => {
+  const userId = localStorage.getItem("id");
   const [exercises, setExercises] = useState([]);
+  const [isWorkoutSaved, setIsWorkoutSaved] = useState(false);
   const [rows, setRows] = useState([
     {
       id: 0,
@@ -98,13 +100,47 @@ const CreateWorkoutGpt = () => {
     setRows([
       ...rows,
       { id: rows.length, title: "", reps: "", sets: "", weights: "" },
-    ]); // Add a new empty row
+    ]);
   };
 
   const deleteRow = (id) => {
     const updatedRows = rows.filter((row) => row.id !== id);
     console.log(updatedRows);
     setRows(updatedRows);
+  };
+
+  const saveWorkout = () => {
+    const workoutData = {
+      title: selectedWorkoutTitle, // Replace with the actual workout title from your form
+      exercises: rows.map((row) => ({
+        title: row.title,
+        reps: row.reps,
+        sets: row.sets,
+        weights: row.weights,
+      })),
+    };
+
+    return fetch(`http://localhost:8080/workouts/create/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workoutData),
+    });
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    saveWorkout(userId, selectedWorkoutTitle, exercise)
+      .then((_data) => {
+        setSelectedWorkoutTitle("");
+        setExercise([]);
+        setIsWorkoutSaved(true);
+        setTimeout(() => setIsWorkoutSaved(false), 1500);
+      })
+      .catch((error) => {
+        console.error("Error saving workout:", error);
+      });
   };
 
   const handleGoalChange = (event) => {
@@ -186,7 +222,7 @@ const CreateWorkoutGpt = () => {
         <br />
         <p>Generated Response</p>
         {generatedResponse}
-        {isLoading? (
+        {isLoading ? (
           <div className="spinner-container">
             <p>Please wait while we generate your workout</p>
             <BeatLoader
@@ -198,21 +234,21 @@ const CreateWorkoutGpt = () => {
           </div>
         ) : (
           generatedResponse && (
-            <form className="create-workout-form">
+            <form className="create-workout-form" id="form">
               <div className="create-workout-container">
-                      <h2 class="table table-dark">Workout Title:&nbsp;
-                      <input
-                        value={selectedWorkoutTitle}
-                        placeholder="please insert workout title"
-                      />
-                      </h2>
                 <table class="table table-dark">
                   <thead>
                     <tr>
-                      {/* <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th> */}
+                      <th colSpan="5">
+                        Workout title:{" "}
+                        <input
+                          className="workoutTitle"
+                          value={selectedWorkoutTitle}
+                          onChange={(e) => {
+                            setSelectedWorkoutTitle(e.target.value);
+                          }}
+                        ></input>
+                      </th>
                     </tr>
                     <tr>
                       <th scope="col">Exercises</th>
@@ -348,11 +384,21 @@ const CreateWorkoutGpt = () => {
                   >
                     Add
                   </button>
-                  <button type="button" class="btn btn-light">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    onClick={handleFormSubmit}
+                  >
                     Save
                   </button>
                 </div>
               </div>
+              <br></br>
+              {isWorkoutSaved && (
+                <div class="alert alert-success" role="alert">
+                  Workout saved!
+                </div>
+              )}
             </form>
           )
         )}
