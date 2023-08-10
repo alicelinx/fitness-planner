@@ -6,8 +6,8 @@ const TopNavigationBar = ({ setRoute, isLoggedIn, logout }) => {
   const username = localStorage.getItem('username');
   return (
     <div className="top-nav-bar">
-      <div>
-        <NavItem label="FITNESS PLANNER" toggleRoute={() => setRoute('home')} />
+      <div onClick={() => setRoute('home')}>
+        <img src='/logo1.png'className='logo-image'/>
       </div>
       <div>
         <NavItem label="Create Workout" toggleRoute={() => setRoute('createWorkout')} />
