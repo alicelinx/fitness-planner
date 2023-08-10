@@ -31,7 +31,7 @@ const WorkoutList = () => {
       <h3>My Workout</h3>
       <div className="container">
         {workOutData.map(workout => (
-          <WorkoutItem key={workout.id} title={workout.title} />
+          <WorkoutItem workoutId={workout.id} key={workout.id} title={workout.title} />
         ))}
       </div>
     </>
