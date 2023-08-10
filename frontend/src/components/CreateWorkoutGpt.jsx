@@ -221,8 +221,7 @@ const CreateWorkoutGpt = () => {
         />
         <button className="ai-workout-create" onClick={handleSearch}>Create</button>
         <br />
-        <p>Generated Response</p>
-        {generatedResponse}
+        
         {isLoading ? (
           <div className="spinner-container">
             <p>Please wait while we generate your workout</p>
