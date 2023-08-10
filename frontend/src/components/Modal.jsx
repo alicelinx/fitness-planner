@@ -1,8 +1,9 @@
 import '../styles/Modal.scss';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ExerciseItem from './ExerciseItem';
 
 const Modal = ({ setIsModalOpen, workoutId }) => {
-
+  const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -14,7 +15,7 @@ const Modal = ({ setIsModalOpen, workoutId }) => {
           },
         });
         const data = await response.json();
-        console.log(data);
+        setExercises(data);
       } catch (error) {
         console.error({ error });
       }
@@ -30,8 +31,11 @@ const Modal = ({ setIsModalOpen, workoutId }) => {
     <>
       <div className='modal-container'>
         <button className='modal-close-button' onClick={() => setIsModalOpen(false)}> X </button>
-
+        
         <h1>hello</h1>
+        {exercises.map(exercise => {
+          <ExerciseItem title={exercise.title} sets={exercise.set_number} reps={exercise.rep_number} weight={exercise.weight_number}/>
+        })}
       </div>
     </>
   );
