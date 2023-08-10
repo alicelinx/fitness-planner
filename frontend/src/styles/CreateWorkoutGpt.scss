@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   flex: 1;
-  // background-image: url('../../public/background-2.png');  ** moved to ChooseCreateWorkout.scss **
+  // background-image: url('../../public/background-2.png'); ** moved to ChooseCreateWorkout.scss **
 
 }
 
@@ -27,4 +27,21 @@
 .create-workout-buttons {
   display: flex;
   justify-content: space-around;
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.muscle-group-input {
+  text-align: center;
+}
+
+.ai-workout-create {
+  margin-top:1em;
+  border-radius: 4px;
 }
