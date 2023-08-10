@@ -9,20 +9,20 @@ const CreateWorkoutGpt = () => {
   const [exercises, setExercises] = useState([]);
   const [isWorkoutSaved, setIsWorkoutSaved] = useState(false);
   const [rows, setRows] = useState([
-    {
-      id: 0,
-      title: "",
-      reps: "",
-      sets: "",
-      weights: "",
-    },
+    // {
+    //   id: 0,
+    //   title: "",
+    //   reps: "",
+    //   sets: "",
+    //   weights: "",
+    // },
   ]);
 
   const [selectedGoal, setSelectedGoal] = useState("Strength");
   const [inputText, setInputText] = useState("");
   const [generatedResponse, setGeneratedResponse] = useState("");
   const [selectedWorkoutTitle, setSelectedWorkoutTitle] = useState("");
-  const [exercise, setExercise] = useState("");
+  const [exercise, setExercise] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const override = css`
@@ -112,12 +112,19 @@ const CreateWorkoutGpt = () => {
   const saveWorkout = () => {
     const workoutData = {
       title: selectedWorkoutTitle, // Replace with the actual workout title from your form
-      exercises: rows.map((row) => ({
+      exercises: [ ...rows.map((row) => ({
         title: row.title,
         reps: row.reps,
         sets: row.sets,
         weights: row.weights,
       })),
+      ...exercise.map((row) => ({
+        title: row.Exercise,
+        reps: row.Reps,
+        sets: row.Sets,
+        weights: row.Weights
+      }))
+      ]
     };
 
     return fetch(`http://localhost:8080/workouts/create/${userId}`, {
@@ -131,6 +138,7 @@ const CreateWorkoutGpt = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log(exercise);
     saveWorkout(userId, selectedWorkoutTitle, exercise)
       .then((_data) => {
         setSelectedWorkoutTitle("");
