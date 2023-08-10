@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
 
 
 router.get('/:id', (req,res) => {
-  getExercisesByWorkoutId.getExercisesByWorkoutId(req.params)
+  const workoutId = req.params.id;
+  getExercisesByWorkoutId.getExercisesByWorkoutId(Number(workoutId))
     .then(data => {
       res.json(data);
     });

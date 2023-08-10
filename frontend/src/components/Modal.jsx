@@ -33,9 +33,9 @@ const Modal = ({ setIsModalOpen, workoutId }) => {
         <button className='modal-close-button' onClick={() => setIsModalOpen(false)}> X </button>
         
         <h1>hello</h1>
-        {exercises.map(exercise => {
-          <ExerciseItem title={exercise.title} sets={exercise.set_number} reps={exercise.rep_number} weight={exercise.weight_number}/>
-        })}
+        {exercises.map(exercise => (
+          <ExerciseItem key={exercise.id} title={exercise.title} sets={exercise.set_number} reps={exercise.rep_number} weight={exercise.weight_number} />
+        ))}
       </div>
     </>
   );
