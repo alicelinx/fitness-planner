@@ -1,0 +1,15 @@
+.choose-create-workout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  background-size: cover;
+  background-image: url('../../public/background-2.png');
+}
+
+.create-button {
+  border-radius: 4px;
+  margin-top: 4px;
+}
