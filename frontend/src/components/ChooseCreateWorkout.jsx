@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CreateWorkoutGpt from "./CreateWorkoutGpt";
 import CreateWorkout from "./CreateWorkout";
-import "../styles/ChooseCreateWorkout.scss"
+import "../styles/ChooseCreateWorkout.scss";
 
 const ChooseCreateWorkout = () => {
   const [showAIWorkout, setShowAIWorkout] = useState(false);
@@ -18,9 +18,11 @@ const ChooseCreateWorkout = () => {
   };
 
   return (
-    <div className="choose-create-workout">
-      <button className="create-button" onClick={handleAICreateClick}>Create Workout with AI</button> or{" "}
-      <button className="create-button" onClick={handleManualCreateClick}>Create Workout Manually</button>
+    <div className="choose-create-workout-container">
+      <div className="choose-create-workout">
+        <button className="create-button" onClick={handleAICreateClick}>Create Workout with AI</button> or{" "}
+        <button className="create-button" onClick={handleManualCreateClick}>Create Workout Manually</button>
+      </div>
 
       {showAIWorkout && <CreateWorkoutGpt />}
       {showManualWorkout && <CreateWorkout />}

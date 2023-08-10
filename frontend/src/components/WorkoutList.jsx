@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import WorkoutItem from './WorkoutItem';
+import '../styles/WorkoutList.scss';
 
 const WorkoutList = () => {
   const userId = localStorage.getItem('id');
@@ -25,11 +26,15 @@ const WorkoutList = () => {
   }, [userId]);
 
   return (
-    <div className="container">
-      {workOutData.map(workout => (
-        <WorkoutItem key={workout.id} title={workout.title} />
-      ))}
-    </div>
+    <>
+      <br></br>
+      <h3>My Workout</h3>
+      <div className="container">
+        {workOutData.map(workout => (
+          <WorkoutItem key={workout.id} title={workout.title} />
+        ))}
+      </div>
+    </>
   );
 };
 

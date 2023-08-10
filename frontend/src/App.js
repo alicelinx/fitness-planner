@@ -3,9 +3,7 @@ import './App.css';
 import HomePage from './components/HomePage';
 import TopNavigationBar from './components/TopNavigationBar';
 import LoginPage from './components/LoginPage';
-import CreateWorkout from './components/CreateWorkout';
 import WorkoutList from './components/WorkoutList';
-import CreateWorkoutGpt from './components/CreateWorkoutGpt';
 import ChooseCreateWorkout from './components/ChooseCreateWorkout';
 
 function App() {
