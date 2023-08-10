@@ -19,7 +19,7 @@ const WorkoutItem = (props) => {
           Details
         </button>
       </div>
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} workoutId={props.workoutId}/>}
     </>
   );
 
