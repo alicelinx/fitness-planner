@@ -212,13 +212,14 @@ const CreateWorkoutGpt = () => {
           <option value="Fat loss">Fat loss</option>
           <option value="Muscle Gain">Muscle Gain</option>
         </select>
-        <label>Insert muscle group: </label>
+        <label>Insert Muscle Group: </label>
         <input
+          className="muscle-group-input"
           placeholder="type your search"
           value={inputText}
           onChange={handleMuscleGroupChange}
         />
-        <button onClick={handleSearch}>Create</button>
+        <button className="ai-workout-create" onClick={handleSearch}>Create</button>
         <br />
         <p>Generated Response</p>
         {generatedResponse}
