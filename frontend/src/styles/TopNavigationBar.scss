@@ -1,8 +1,13 @@
 .top-nav-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 4em;
   width: 100%;
   background-color: black;
+  padding: 2em 7em;
+}
+
+.greeting-user {
+  font-size: large;
 }
