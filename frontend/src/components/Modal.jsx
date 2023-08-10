@@ -22,7 +22,7 @@ const Modal = ({ setIsModalOpen, workoutId }) => {
     };
 
     fetchExercises();
-  }, []);
+  });
 
 
 
