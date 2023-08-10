@@ -219,18 +219,21 @@ const CreateWorkoutGpt = () => {
           value={inputText}
           onChange={handleMuscleGroupChange}
         />
-        <button className="ai-workout-create" onClick={handleSearch}>Create</button>
+        <button className="ai-workout-create" onClick={handleSearch}>
+          Create
+        </button>
         <br />
-        
+
         {isLoading ? (
           <div className="spinner-container">
             <p>Please wait while we generate your workout</p>
-            <BeatLoader
-              css={override}
-              size={100}
-              color={"#123abc"}
-              loading={isLoading}
-            />
+            
+              <BeatLoader
+                css={override}
+                size={30}
+                color={"#ffffff"}
+                loading={isLoading}
+              />
           </div>
         ) : (
           generatedResponse && (
