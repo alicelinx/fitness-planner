@@ -1,23 +1,24 @@
-import { useState, useEffect } from 'react';
-import '../styles/CreateWorkout.scss';
+import { useState, useEffect } from "react";
+import "../styles/CreateWorkout.scss";
 
 const CreateWorkout = () => {
-  const userId = localStorage.getItem('id');
+  const userId = localStorage.getItem("id");
   const [exercises, setExercises] = useState([]);
   const [workoutTitle, setWorkoutTitle] = useState("");
   const [isWorkoutSaved, setIsWorkoutSaved] = useState(false);
+  const [formError, setFormError] = useState(false);
   const [rows, setRows] = useState([
     {
       id: 0,
       title: "",
       reps: "",
       sets: "",
-      weights: ""
-    }
+      weights: "",
+    },
   ]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/exercises')
+    fetch("http://localhost:8080/exercises")
       .then((response) => {
         return response.json();
       })
@@ -27,11 +28,11 @@ const CreateWorkout = () => {
   }, []);
 
   const updateTitle = ({ id, title }) => {
-    const updatedRows = rows.map(row => {
+    const updatedRows = rows.map((row) => {
       if (row.id === id) {
         return {
           ...row,
-          title
+          title,
         };
       } else {
         return row;
@@ -41,11 +42,11 @@ const CreateWorkout = () => {
   };
 
   const updateReps = ({ id, reps }) => {
-    const updatedRows = rows.map(row => {
+    const updatedRows = rows.map((row) => {
       if (row.id === id) {
         return {
           ...row,
-          reps
+          reps,
         };
       } else {
         return row;
@@ -55,11 +56,11 @@ const CreateWorkout = () => {
   };
 
   const updateSets = ({ id, sets }) => {
-    const updatedRows = rows.map(row => {
+    const updatedRows = rows.map((row) => {
       if (row.id === id) {
         return {
           ...row,
-          sets
+          sets,
         };
       } else {
         return row;
@@ -69,11 +70,11 @@ const CreateWorkout = () => {
   };
 
   const updateWeights = ({ id, weights }) => {
-    const updatedRows = rows.map(row => {
+    const updatedRows = rows.map((row) => {
       if (row.id === id) {
         return {
           ...row,
-          weights
+          weights,
         };
       } else {
         return row;
@@ -83,7 +84,10 @@ const CreateWorkout = () => {
   };
 
   const addRow = () => {
-    setRows([...rows, { id: rows.length, title: "", reps: "", sets: "", weights: "" }]); // Add a new empty row
+    setRows([
+      ...rows,
+      { id: rows.length, title: "", reps: "", sets: "", weights: "" },
+    ]); // Add a new empty row
   };
 
   const deleteRow = (id) => {
@@ -91,8 +95,6 @@ const CreateWorkout = () => {
     console.log(updatedRows);
     setRows(updatedRows);
   };
-
-
 
   const saveWorkout = () => {
     const workoutData = {
@@ -106,9 +108,9 @@ const CreateWorkout = () => {
     };
 
     return fetch(`http://localhost:8080/workouts/create/${userId}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(workoutData),
     });
@@ -116,8 +118,25 @@ const CreateWorkout = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+
+    const hasBlankFields = rows.some(
+      (row) =>
+        row.title === "" ||
+        row.title === "Select Exercise" ||
+        row.reps === "" ||
+        row.sets === "" ||
+        row.weights === ""
+    );
+
+    if (hasBlankFields || workoutTitle === "") {
+      setFormError(true);
+      return;
+    }
+
+    setFormError(false);
+
     saveWorkout()
-      .then(_data => {
+      .then((_data) => {
         setWorkoutTitle("");
         setRows([
           {
@@ -125,32 +144,43 @@ const CreateWorkout = () => {
             title: "",
             reps: "",
             sets: "",
-            weights: ""
-          }
+            weights: "",
+          },
         ]);
         setIsWorkoutSaved(true);
         setTimeout(() => setIsWorkoutSaved(false), 1500);
       })
       .catch((error) => {
-        console.error('Error saving workout:', error);
+        console.error("Error saving workout:", error);
       });
   };
 
-
   return (
     <>
-      <div className='create-workout'>
+      <div className="create-workout">
         <br></br>
         <h3>Create Workout</h3>
         <br></br>
-        <form className='create-workout-form' id='form'>
+        {formError && (
+          <div className="alert alert-danger" role="alert">
+            Please fill out all fields before saving the workout.
+          </div>
+        )}
+        <form className="create-workout-form" id="form">
           <div className="create-workout-container">
             <table class="table table-dark">
               <thead>
                 <tr>
-                  <th colSpan="5">Workout title: <input className='workoutTitle' value={workoutTitle} onChange={(e) => {
-                    setWorkoutTitle(e.target.value);
-                  }}></input></th>
+                  <th colSpan="5">
+                    Workout title:{" "}
+                    <input
+                      className="workoutTitle"
+                      value={workoutTitle}
+                      onChange={(e) => {
+                        setWorkoutTitle(e.target.value);
+                      }}
+                    ></input>
+                  </th>
                 </tr>
                 <tr>
                   <th scope="col">Exercises</th>
@@ -164,11 +194,18 @@ const CreateWorkout = () => {
                 {rows.map((row) => (
                   <tr key={row.id}>
                     <th scope="row">
-                      <select className="custom-select custom-select-sm" defaultValue='' value={row.title} onChange={(e) => updateTitle({
-                        id: row.id,
-                        title: e.target.value
-                      })}>
-                        <option value=''>Select Exercise</option>
+                      <select
+                        className="custom-select custom-select-sm"
+                        defaultValue=""
+                        value={row.title}
+                        onChange={(e) =>
+                          updateTitle({
+                            id: row.id,
+                            title: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="">Select Exercise</option>
                         {exercises.map((exercise) => (
                           <option key={exercise.id} value={exercise.title}>
                             {exercise.title}
@@ -176,24 +213,45 @@ const CreateWorkout = () => {
                         ))}
                       </select>
                     </th>
-                    <td><input className='reps' value={row.reps} inputMode="numeric" onChange={(e) => {
-                      updateReps({
-                        id: row.id,
-                        reps: e.target.value
-                      });
-                    }}></input></td>
-                    <td><input className='sets' value={row.sets} inputMode="numeric" onChange={(e) => {
-                      updateSets({
-                        id: row.id,
-                        sets: e.target.value
-                      });
-                    }}></input></td>
-                    <td><input className='weights' value={row.weights} inputMode="numeric" onChange={(e) => {
-                      updateWeights({
-                        id: row.id,
-                        weights: e.target.value
-                      });
-                    }}></input></td>
+                    <td>
+                      <input
+                        className="reps"
+                        value={row.reps}
+                        inputMode="numeric"
+                        onChange={(e) => {
+                          updateReps({
+                            id: row.id,
+                            reps: e.target.value,
+                          });
+                        }}
+                      ></input>
+                    </td>
+                    <td>
+                      <input
+                        className="sets"
+                        value={row.sets}
+                        inputMode="numeric"
+                        onChange={(e) => {
+                          updateSets({
+                            id: row.id,
+                            sets: e.target.value,
+                          });
+                        }}
+                      ></input>
+                    </td>
+                    <td>
+                      <input
+                        className="weights"
+                        value={row.weights}
+                        inputMode="numeric"
+                        onChange={(e) => {
+                          updateWeights({
+                            id: row.id,
+                            weights: e.target.value,
+                          });
+                        }}
+                      ></input>
+                    </td>
                     <td>
                       <button
                         type="button"
@@ -208,17 +266,21 @@ const CreateWorkout = () => {
               </tbody>
             </table>
             <i class="fa-solid fa-trash"></i>
-            <div className='create-workout-buttons'>
-              <button type="button" class="btn btn-success" onClick={addRow}>Add</button>
-              <button class="btn btn-light" onClick={handleFormSubmit}>Save</button>
+            <div className="create-workout-buttons">
+              <button type="button" class="btn btn-success" onClick={addRow}>
+                Add
+              </button>
+              <button class="btn btn-light" onClick={handleFormSubmit}>
+                Save
+              </button>
             </div>
-
           </div>
           <br></br>
-          {isWorkoutSaved &&
+          {isWorkoutSaved && (
             <div class="alert alert-success" role="alert">
               Workout saved!
-            </div>}
+            </div>
+          )}
         </form>
       </div>
     </>
