@@ -6,22 +6,22 @@ const WorkoutList = () => {
   const userId = localStorage.getItem('id');
   const [workOutData, setWorkOutData] = useState([]);
 
-  useEffect(() => {
-    const fetchWorkouts = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/workouts/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        setWorkOutData(data);
-      } catch (error) {
-        console.error({ error });
-      }
-    };
+  const fetchWorkouts = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/workouts/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      setWorkOutData(data);
+    } catch (error) {
+      console.error({ error });
+    }
+  };
 
+  useEffect(() => {
     fetchWorkouts();
   }, [userId]);
 
@@ -31,7 +31,7 @@ const WorkoutList = () => {
       <h3>My Workout</h3>
       <div className="container">
         {workOutData.map(workout => (
-          <WorkoutItem workoutId={workout.id} key={workout.id} title={workout.title} />
+          <WorkoutItem workoutId={workout.id} key={workout.id} title={workout.title} fetchWorkouts={fetchWorkouts} />
         ))}
       </div>
     </>
