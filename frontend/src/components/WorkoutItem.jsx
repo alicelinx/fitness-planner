@@ -12,14 +12,14 @@ const WorkoutItem = (props) => {
         <button
           className="btn btn-outline-light"
           onClick={() => {
-            setIsModalOpen(true)
+            setIsModalOpen(true);
           }}
 
         >
           Details
         </button>
       </div>
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} workoutId={props.workoutId}/>}
+      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} workoutId={props.workoutId} workoutTitle={props.title} />}
     </>
   );
 

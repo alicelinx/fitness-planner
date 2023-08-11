@@ -2,7 +2,7 @@ import '../styles/Modal.scss';
 import { useEffect, useState } from "react";
 import ExerciseItem from './ExerciseItem';
 
-const Modal = ({ setIsModalOpen, workoutId }) => {
+const Modal = ({ setIsModalOpen, workoutId, workoutTitle }) => {
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
@@ -31,8 +31,8 @@ const Modal = ({ setIsModalOpen, workoutId }) => {
     <>
       <div className='modal-container'>
         <button className='modal-close-button' onClick={() => setIsModalOpen(false)}> X </button>
-        
-        <h1>hello</h1>
+
+        <h3>{workoutTitle}</h3>
         {exercises.map(exercise => (
           <ExerciseItem key={exercise.id} title={exercise.title} sets={exercise.set_number} reps={exercise.rep_number} weight={exercise.weight_number} />
         ))}
