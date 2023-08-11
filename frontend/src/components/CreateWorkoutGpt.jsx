@@ -9,21 +9,22 @@ const CreateWorkoutGpt = () => {
   const [exercises, setExercises] = useState([]);
   const [isWorkoutSaved, setIsWorkoutSaved] = useState(false);
   const [rows, setRows] = useState([
-    {
-      id: 0,
-      title: "",
-      reps: "",
-      sets: "",
-      weights: "",
-    },
+    // {
+    //   id: 0,
+    //   title: "",
+    //   reps: "",
+    //   sets: "",
+    //   weights: "",
+    // },
   ]);
 
   const [selectedGoal, setSelectedGoal] = useState("Strength");
   const [inputText, setInputText] = useState("");
   const [generatedResponse, setGeneratedResponse] = useState("");
   const [selectedWorkoutTitle, setSelectedWorkoutTitle] = useState("");
-  const [exercise, setExercise] = useState("");
+  const [exercise, setExercise] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [formError, setFormError] = useState(false);
 
   const override = css`
     display: block;
@@ -112,12 +113,20 @@ const CreateWorkoutGpt = () => {
   const saveWorkout = () => {
     const workoutData = {
       title: selectedWorkoutTitle, // Replace with the actual workout title from your form
-      exercises: rows.map((row) => ({
-        title: row.title,
-        reps: row.reps,
-        sets: row.sets,
-        weights: row.weights,
-      })),
+      exercises: [
+        ...rows.map((row) => ({
+          title: row.title,
+          reps: row.reps,
+          sets: row.sets,
+          weights: row.weights,
+        })),
+        ...exercise.map((row) => ({
+          title: row.Exercise,
+          reps: row.Reps,
+          sets: row.Sets,
+          weights: row.Weights,
+        })),
+      ],
     };
 
     return fetch(`http://localhost:8080/workouts/create/${userId}`, {
@@ -131,6 +140,35 @@ const CreateWorkoutGpt = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log(exercise);
+
+    const hasBlankExercise = exercise.some((exercise) => {
+      return (
+        String(exercise.Exercise).trim() === "" ||
+        String(exercise.Reps).trim() === "" ||
+        String(exercise.Sets).trim() === "" ||
+        String(exercise.Weights).trim() === ""
+      );
+    });
+
+    const hasBlankRow = rows.some((row) => {
+      return (
+        String(row.title).trim() === "" ||
+        String(row.reps).trim() === "" ||
+        String(row.sets).trim() === "" ||
+        String(row.weights).trim() === ""
+      );
+    });
+
+    const isWorkoutTitleBlank = selectedWorkoutTitle.trim() === "";
+
+    if (hasBlankExercise || hasBlankRow || isWorkoutTitleBlank) {
+      setFormError(true);
+      return;
+    }
+
+    setFormError(false);
+
     saveWorkout(userId, selectedWorkoutTitle, exercise)
       .then((_data) => {
         setSelectedWorkoutTitle("");
@@ -161,6 +199,13 @@ const CreateWorkoutGpt = () => {
       }
       return exercise;
     });
+
+    const hasBlankWeight = updatedExercise.some(
+      (exercise) => String(exercise.Weights).trim() === ""
+    );
+    
+    setFormError(hasBlankWeight);
+
     setExercise(updatedExercise);
   };
 
@@ -171,9 +216,9 @@ const CreateWorkoutGpt = () => {
 
   const generateSearchQuery = () => {
     console.log(
-      `give me a ${inputText} workout in JSON format, tailored for ${selectedGoal}. MUST be in the format of '{"Workout Title": "reference to the workout name", "Exercises": [{"Exercise":, "Sets":, "Reps":}]}'`
+      `give me a ${inputText} workout in JSON format, tailored for ${selectedGoal}. MUST be in the format of '{"Workout Title": "reference to the workout name", "Exercises": [{"Exercise":, "Sets":, "Reps":, "Weights":"leave empty"}]}'`
     );
-    return `give me a ${inputText} workout in JSON format, tailored for ${selectedGoal}. MUST be in the format of '{"Workout Title": "reference to the workout name", "Exercises": [{"Exercise":, "Sets":, "Reps":}]}'`;
+    return `give me a ${inputText} workout in JSON format, tailored for ${selectedGoal}. MUST be in the format of '{"Workout Title": "reference to the workout name", "Exercises": [{"Exercise":, "Sets":, "Reps":, , "Weights":"leave empty"}]}'`;
   };
 
   const handleSearch = async () => {
@@ -223,17 +268,21 @@ const CreateWorkoutGpt = () => {
           Create
         </button>
         <br />
-
+        {formError && (
+                <div className="alert alert-danger" role="alert">
+                  Please fill out all fields before saving the workout.
+                </div>
+              )}
         {isLoading ? (
           <div className="spinner-container">
             <p>Please wait while we generate your workout</p>
-            
-              <BeatLoader
-                css={override}
-                size={30}
-                color={"#ffffff"}
-                loading={isLoading}
-              />
+
+            <BeatLoader
+              css={override}
+              size={30}
+              color={"#ffffff"}
+              loading={isLoading}
+            />
           </div>
         ) : (
           generatedResponse && (
@@ -306,6 +355,7 @@ const CreateWorkoutGpt = () => {
                         <td>
                           <input
                             className="weights"
+                            value={exercise.Weights}
                             onChange={(e) =>
                               handleExerciseChange(
                                 index,
