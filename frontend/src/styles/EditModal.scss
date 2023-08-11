@@ -1,29 +1,26 @@
-.modal-container {
+.edit-modal-container {
   background-color: #282c34;
   box-shadow: 0 0 0 50vmax rgba(0, 0, 0, .5);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -40%);
-  height: 60%;
-  width: 60%;
+  height: 100%;
+  width: 100%;
   overflow-y: scroll;
   border-radius: 12px;
   padding: 0.7em;
+
 }
 
-.modal-close-button {
+.edit-modal-close-button {
   padding: 2px 10px;
-  background-color: blueviolet;
+  background-color: rgb(0, 213, 255);
   border: none;
   border-radius: 100px;
   color: white;
   font-size: 20px;
   cursor: pointer;
   margin-left: 40em;
-}
 
-.edit-and-delete-buttons {
-  display: flex;
-  justify-content: space-around;
 }
