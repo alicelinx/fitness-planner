@@ -19,7 +19,7 @@ const WorkoutItem = (props) => {
           Details
         </button>
       </div>
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} workoutId={props.workoutId} workoutTitle={props.title} fetchWorkouts={props.fetchWorkouts} />}
+      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} workoutId={props.workoutId} workoutTitle={props.title} fetchWorkouts={props.fetchWorkouts} setDeleteWorkout={props.setDeleteWorkout} />}
     </>
   );
 

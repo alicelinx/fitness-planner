@@ -5,6 +5,7 @@ import '../styles/WorkoutList.scss';
 const WorkoutList = () => {
   const userId = localStorage.getItem('id');
   const [workOutData, setWorkOutData] = useState([]);
+  const [deleteWorkout, setDeleteWorkout] = useState(false);
 
   const fetchWorkouts = async () => {
     try {
@@ -25,13 +26,23 @@ const WorkoutList = () => {
     fetchWorkouts();
   }, [userId]);
 
+  useEffect(() => {
+    if (deleteWorkout) {
+      setTimeout(() => setDeleteWorkout(false), 2000);
+    }
+  }, [deleteWorkout]);
+
   return (
     <>
       <br></br>
+      {deleteWorkout &&
+        <div class="alert alert-success" role="alert">
+          Workout deleted!
+        </div>}
       <h3>My Workout</h3>
       <div className="container">
         {workOutData.map(workout => (
-          <WorkoutItem workoutId={workout.id} key={workout.id} title={workout.title} fetchWorkouts={fetchWorkouts} />
+          <WorkoutItem workoutId={workout.id} key={workout.id} title={workout.title} fetchWorkouts={fetchWorkouts} setDeleteWorkout={setDeleteWorkout} />
         ))}
       </div>
     </>
