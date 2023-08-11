@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import ExerciseItem from './ExerciseItem';
 import EditModal from './EditModal';
 
-const Modal = ({ isModalOpen, setIsModalOpen, workoutId, workoutTitle, fetchWorkouts }) => {
+const Modal = ({ isModalOpen, setIsModalOpen, workoutId, workoutTitle, fetchWorkouts, setDeleteWorkout }) => {
   const [exercises, setExercises] = useState([]);
   const [toggleEdit, setToggleEdit] = useState(false);
-  const [deleteWorkout, setDeleteWorkout] = useState(false);
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -28,20 +27,15 @@ const Modal = ({ isModalOpen, setIsModalOpen, workoutId, workoutTitle, fetchWork
   }, [isModalOpen]);
 
   const deleteWorkoutRequest = (workoutId) => {
-    fetch(`http://localhost:8080/workouts/${workoutId}`,
+    return fetch(`http://localhost:8080/workouts/${workoutId}`,
       {
         method: "DELETE",
       }
     ).then(_data => {
+      setDeleteWorkout(true);
       fetchWorkouts();
     });
   };
-
-  const handleDelete = (workoutId) => {
-    setDeleteWorkout(true);
-    deleteWorkoutRequest(workoutId);
-  };
-
 
   return (
     <>
@@ -57,12 +51,15 @@ const Modal = ({ isModalOpen, setIsModalOpen, workoutId, workoutTitle, fetchWork
             </th>
           </thead>
         </table>
-        <button class="btn btn-light" onClick={() => setToggleEdit(true)}>
-          Edit
-        </button>
-        <button class="btn btn-light" onClick={() => handleDelete(workoutId)}>
-          Delete
-        </button>
+        <div className='edit-and-delete-buttons'>
+          <button class="btn btn-light" onClick={() => setToggleEdit(true)}>
+            Edit
+          </button>
+          <button class="btn btn-light" onClick={() => deleteWorkoutRequest(workoutId)}>
+            Delete
+          </button>
+
+        </div>
 
         {toggleEdit && <EditModal setToggleEdit={setToggleEdit} />}
       </div>

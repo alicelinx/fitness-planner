@@ -22,3 +22,8 @@
   cursor: pointer;
   margin-left: 40em;
 }
+
+.edit-and-delete-buttons {
+  display: flex;
+  justify-content: space-around;
+}
