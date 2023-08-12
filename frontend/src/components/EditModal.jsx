@@ -64,12 +64,6 @@ const EditModal = ({ setToggleEdit, workoutId, workoutTitle, setWorkoutSaveAlert
     setRows(updatedRows);
   };
 
-  const deleteRow = (id) => {
-    const updatedRows = rows.filter((row) => row.id !== id);
-    console.log(updatedRows);
-    setRows(updatedRows);
-  };
-
   const saveWorkout = () => {
     const workoutData = {
       title: newWorkoutTitle, // Replace with the actual workout title from your form
