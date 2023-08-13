@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
 .nav-item {
   padding-right: 1.5em;
   background: none;
   color: inherit;
   border: none;
   font: inherit;
-  cursor: pointer;
   outline: inherit;
+  font-family: 'Staatliches', cursive;
+}
+
+.nav-item:hover {
+  color: rgb(0, 213, 255);
 }
