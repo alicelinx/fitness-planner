@@ -8,15 +8,7 @@ const CreateWorkoutGpt = () => {
   const userId = localStorage.getItem("id");
   const [exercises, setExercises] = useState([]);
   const [isWorkoutSaved, setIsWorkoutSaved] = useState(false);
-  const [rows, setRows] = useState([
-    // {
-    //   id: 0,
-    //   title: "",
-    //   reps: "",
-    //   sets: "",
-    //   weights: "",
-    // },
-  ]);
+  const [rows, setRows] = useState([]);
 
   const [selectedGoal, setSelectedGoal] = useState("Strength");
   const [inputText, setInputText] = useState("");
@@ -203,7 +195,7 @@ const CreateWorkoutGpt = () => {
     const hasBlankWeight = updatedExercise.some(
       (exercise) => String(exercise.Weights).trim() === ""
     );
-    
+
     setFormError(hasBlankWeight);
 
     setExercise(updatedExercise);
@@ -248,31 +240,36 @@ const CreateWorkoutGpt = () => {
   return (
     <>
       <div className="create-workout">
-        <br></br>
         <h3>Create Workout using AI</h3>
-        <br></br>
-        <label>Select Workout Goal: </label>
-        <select value={selectedGoal} onChange={handleGoalChange}>
-          <option value="Strength">Strength</option>
-          <option value="Fat loss">Fat loss</option>
-          <option value="Muscle Gain">Muscle Gain</option>
-        </select>
-        <label>Insert Muscle Group: </label>
-        <input
-          className="muscle-group-input"
-          placeholder="type your search"
-          value={inputText}
-          onChange={handleMuscleGroupChange}
-        />
-        <button className="ai-workout-create" onClick={handleSearch}>
-          Create
-        </button>
+        <div className="gpt-input-container">
+          <div>
+            <label>Select Workout Goal:</label>&nbsp;&nbsp;
+            <select className='select-goal' value={selectedGoal} onChange={handleGoalChange}>
+              <option value="Strength">Strength</option>
+              <option value="Fat loss">Fat loss</option>
+              <option value="Muscle Gain">Muscle Gain</option>
+            </select>
+          </div>
+          <div>
+            <label>Insert Muscle Group:</label>&nbsp;&nbsp;
+            <input
+              className="muscle-group-input"
+              placeholder="e.g. Legs"
+              value={inputText}
+              onChange={handleMuscleGroupChange}
+            />
+          </div>
+          <br />
+          <button className="btn btn-outline-info" onClick={handleSearch}>
+            Create
+          </button>
+        </div>
         <br />
         {formError && (
-                <div className="alert alert-danger" role="alert">
-                  Please fill out all fields before saving the workout.
-                </div>
-              )}
+          <div className="alert alert-danger" role="alert">
+            Please fill out all fields before saving the workout.
+          </div>
+        )}
         {isLoading ? (
           <div className="spinner-container">
             <p>Please wait while we generate your workout</p>
@@ -368,7 +365,7 @@ const CreateWorkoutGpt = () => {
                         <td>
                           <button
                             type="button"
-                            className="btn btn-danger"
+                            className="btn btn-outline-danger"
                             onClick={() => deleteExercise(index)}
                           >
                             Delete
@@ -418,7 +415,7 @@ const CreateWorkoutGpt = () => {
                         <td>
                           <button
                             type="button"
-                            className="btn btn-danger"
+                            className="btn btn-outline-danger"
                             onClick={() => deleteRow(row.id)}
                           >
                             Delete
@@ -432,14 +429,14 @@ const CreateWorkoutGpt = () => {
                 <div className="create-workout-buttons">
                   <button
                     type="button"
-                    class="btn btn-success"
+                    class="btn btn-outline-success"
                     onClick={addRow}
                   >
                     Add
                   </button>
                   <button
                     type="button"
-                    class="btn btn-light"
+                    class="btn btn-outline-light"
                     onClick={handleFormSubmit}
                   >
                     Save
@@ -447,11 +444,13 @@ const CreateWorkoutGpt = () => {
                 </div>
               </div>
               <br></br>
-              {isWorkoutSaved && (
-                <div class="alert alert-success" role="alert">
-                  Workout saved!
+              {isWorkoutSaved &&
+                <div className='alert-container'>
+                  <div class="alert alert-success" role="alert">
+                    Workout saved!
+                  </div>
                 </div>
-              )}
+              }
             </form>
           )
         )}

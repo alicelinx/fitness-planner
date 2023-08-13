@@ -50,13 +50,16 @@ const Modal = ({ isModalOpen, setIsModalOpen, workoutId, workoutTitle, setDelete
     <>
       <div className='modal-container'>
         <button className='modal-close-button' onClick={() => setIsModalOpen(false)}> X </button>
-        {workoutSaveAlert && <div class="alert alert-success" role="alert">
-          Workout saved!
-        </div>}
+        {workoutSaveAlert &&
+          <div className='alert-container'>
+            <div class="alert alert-success" role="alert">
+              Workout saved!
+            </div>
+          </div>}
         <table class="table table-dark">
           <thead>
             <th colSpan="4">
-              <h3>{workoutTitle}</h3>
+              <h3 className='workout-title'>{workoutTitle}</h3>
               {exercises.map(exercise => (
                 <ExerciseItem key={exercise.id} title={exercise.title} sets={exercise.set_number} reps={exercise.rep_number} weight={exercise.weight_number} />
               ))}
@@ -64,10 +67,10 @@ const Modal = ({ isModalOpen, setIsModalOpen, workoutId, workoutTitle, setDelete
           </thead>
         </table>
         <div className='edit-and-delete-buttons'>
-          <button class="btn btn-light" onClick={() => setToggleEdit(true)}>
+          <button class="btn btn-outline-success" onClick={() => setToggleEdit(true)}>
             Edit
           </button>
-          <button class="btn btn-light" onClick={() => deleteWorkoutRequest(workoutId)}>
+          <button class="btn btn-outline-danger" onClick={() => deleteWorkoutRequest(workoutId)}>
             Delete
           </button>
 

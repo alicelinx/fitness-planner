@@ -175,7 +175,7 @@ const EditModal = ({ setToggleEdit, workoutId, workoutTitle, setWorkoutSaveAlert
       <button className='edit-modal-close-button' onClick={() => setToggleEdit(false)}> X </button>
 
       <form className="create-workout-form" id="form">
-        <div className="create-workout-container">
+        <div className="edit-workout-container">
           <table class="table table-dark">
             <thead>
               <tr>
@@ -265,7 +265,7 @@ const EditModal = ({ setToggleEdit, workoutId, workoutTitle, setWorkoutSaveAlert
           </table>
           <i class="fa-solid fa-trash"></i>
           <div className="create-workout-buttons">
-            <button class="btn btn-light" onClick={handleFormSubmit}>
+            <button class="btn btn-outline-info" onClick={handleFormSubmit}>
               Save
             </button>
           </div>

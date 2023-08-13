@@ -1,7 +1,29 @@
-.container {
+.my-workout-container {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  background-size: cover;
+  background-image: url('../../public/background.jpg');
+
+}
+
+.my-workout-list {
+  margin-top: 15px;
   display: flex;
-  // flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+}
+
+.alert-container {
+  display: flex;
+  justify-content: center;
+  width: 100%
+}
+
+.alert,
+.alert-success,
+.workout-list {
+  width: 50%;
+  text-align: center;
 }

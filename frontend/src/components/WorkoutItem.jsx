@@ -10,7 +10,7 @@ const WorkoutItem = (props) => {
       <div className="workout-item">
         <h3 className="text-light">{props.title}</h3>
         <button
-          className="btn btn-outline-light"
+          className="btn btn-outline-info"
           onClick={() => {
             setIsModalOpen(true);
           }}
