@@ -158,9 +158,7 @@ const CreateWorkout = () => {
   return (
     <>
       <div className="create-workout">
-        <br></br>
         <h3>Create Workout</h3>
-        <br></br>
         {formError && (
           <div className="alert alert-danger" role="alert">
             Please fill out all fields before saving the workout.
@@ -255,7 +253,7 @@ const CreateWorkout = () => {
                     <td>
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn btn-outline-danger"
                         onClick={() => deleteRow(row.id)}
                       >
                         Delete
@@ -267,20 +265,22 @@ const CreateWorkout = () => {
             </table>
             <i class="fa-solid fa-trash"></i>
             <div className="create-workout-buttons">
-              <button type="button" class="btn btn-success" onClick={addRow}>
+              <button type="button" class="btn btn-outline-success" onClick={addRow}>
                 Add
               </button>
-              <button class="btn btn-light" onClick={handleFormSubmit}>
+              <button class="btn btn-outline-light" onClick={handleFormSubmit}>
                 Save
               </button>
             </div>
           </div>
           <br></br>
-          {isWorkoutSaved && (
-            <div class="alert alert-success" role="alert">
-              Workout saved!
+          {isWorkoutSaved &&
+            <div className='alert-container'>
+              <div class="alert alert-success" role="alert">
+                Workout saved!
+              </div>
             </div>
-          )}
+          }
         </form>
       </div>
     </>

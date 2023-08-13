@@ -20,8 +20,9 @@ const ChooseCreateWorkout = () => {
   return (
     <div className="choose-create-workout-container">
       <div className="choose-create-workout">
-        <button className="create-button" onClick={handleAICreateClick}>Create Workout with AI</button> or{" "}
-        <button className="create-button" onClick={handleManualCreateClick}>Create Workout Manually</button>
+        <div className="button ai" onClick={handleAICreateClick}>Create Workout with AI</div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div className="button manual" onClick={handleManualCreateClick}>Create Workout Manually</div>
       </div>
 
       {showAIWorkout && <CreateWorkoutGpt />}

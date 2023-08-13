@@ -4,7 +4,8 @@ const getWorkoutById = (id) => {
   return db
     .query(`
     SELECT * FROM workouts
-    WHERE user_id = $1`, [id])
+    WHERE user_id = $1
+    ORDER BY id`, [id])
     .then(data => {
       return data.rows;
     })

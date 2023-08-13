@@ -33,19 +33,18 @@ const WorkoutList = () => {
   }, [deleteWorkout]);
 
   return (
-    <>
-      <br></br>
+    <div className="my-workout-container">
       {deleteWorkout &&
-        <div class="alert alert-success" role="alert">
-          Workout deleted!
-        </div>}
-      <h3>My Workout</h3>
-      <div className="container">
+        <div className='alert-container'>
+          <div className="alert alert-success workout-list" role="alert">
+            Workout deleted!
+          </div></div>}
+      <div className="my-workout-list">
         {workOutData.map(workout => (
           <WorkoutItem workoutId={workout.id} key={workout.id} title={workout.title} fetchWorkouts={fetchWorkouts} setDeleteWorkout={setDeleteWorkout} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

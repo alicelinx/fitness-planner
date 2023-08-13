@@ -12,7 +12,15 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/:id', (req,res) => {
+router.get('/:id', (req, res) => {
+  const workoutId = req.params.id;
+  getExercisesByWorkoutId.getExercisesByWorkoutId(Number(workoutId))
+    .then(data => {
+      res.json(data);
+    });
+});
+
+router.post('/:id', (req, res) => {
   const workoutId = req.params.id;
   getExercisesByWorkoutId.getExercisesByWorkoutId(Number(workoutId))
     .then(data => {
