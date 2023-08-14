@@ -92,7 +92,7 @@ const CreateWorkoutGpt = () => {
   const addRow = () => {
     setRows([
       ...rows,
-      { id: rows.length, title: "", reps: "", sets: "", weights: "" },
+      { id: Date.now(), title: "", reps: "", sets: "", weights: "" },
     ]);
   };
 
@@ -104,7 +104,7 @@ const CreateWorkoutGpt = () => {
 
   const saveWorkout = () => {
     const workoutData = {
-      title: selectedWorkoutTitle, // Replace with the actual workout title from your form
+      title: selectedWorkoutTitle,
       exercises: [
         ...rows.map((row) => ({
           title: row.title,
@@ -133,6 +133,7 @@ const CreateWorkoutGpt = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(exercise);
+    console.log(rows);
 
     const hasBlankExercise = exercise.some((exercise) => {
       return (
@@ -164,6 +165,15 @@ const CreateWorkoutGpt = () => {
     saveWorkout(userId, selectedWorkoutTitle, exercise)
       .then((_data) => {
         setSelectedWorkoutTitle("");
+        setRows([
+          {
+            id: 0,
+            title: "",
+            reps: "",
+            sets: "",
+            weights: "",
+          },
+        ]);
         setExercise([]);
         setIsWorkoutSaved(true);
         setTimeout(() => setIsWorkoutSaved(false), 1500);
@@ -244,7 +254,11 @@ const CreateWorkoutGpt = () => {
         <div className="gpt-input-container">
           <div>
             <label>Select Workout Goal:</label>&nbsp;&nbsp;
-            <select className='select-goal' value={selectedGoal} onChange={handleGoalChange}>
+            <select
+              className="select-goal"
+              value={selectedGoal}
+              onChange={handleGoalChange}
+            >
               <option value="Strength">Strength</option>
               <option value="Fat loss">Fat loss</option>
               <option value="Muscle Gain">Muscle Gain</option>
@@ -377,7 +391,16 @@ const CreateWorkoutGpt = () => {
                     {rows.map((row) => (
                       <tr key={row.id}>
                         <th scope="row">
-                          <input></input>
+                          <input
+                            defaultValue=""
+                            value={row.title}
+                            onChange={(e) =>
+                              updateTitle({
+                                id: row.id,
+                                title: e.target.value,
+                              })
+                            }
+                          ></input>
                         </th>
                         <td>
                           <input
@@ -444,13 +467,13 @@ const CreateWorkoutGpt = () => {
                 </div>
               </div>
               <br></br>
-              {isWorkoutSaved &&
-                <div className='alert-container'>
+              {isWorkoutSaved && (
+                <div className="alert-container">
                   <div class="alert alert-success" role="alert">
                     Workout saved!
                   </div>
                 </div>
-              }
+              )}
             </form>
           )
         )}
