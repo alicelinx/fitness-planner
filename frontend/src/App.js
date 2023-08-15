@@ -5,6 +5,8 @@ import TopNavigationBar from './components/TopNavigationBar';
 import LoginPage from './components/LoginPage';
 import WorkoutList from './components/WorkoutList';
 import ChooseCreateWorkout from './components/ChooseCreateWorkout';
+import Footer from './components/Footer';
+
 
 function App() {
   const [route, setRoute] = useState('home');
@@ -30,6 +32,7 @@ function App() {
       {route === "login" && <LoginPage setRoute={setRoute} setIsLoggedIn={setIsLoggedIn} />}
       {route === "createWorkout" && <ChooseCreateWorkout setRoute={setRoute} />}
       {route === "workouts" && <WorkoutList />}
+      <Footer />
     </div>
   );
 }
