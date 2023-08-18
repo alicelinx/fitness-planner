@@ -1,5 +1,6 @@
 # Fitness Planner
 
+Fitness Planner is a workout planning app with an integrated ChatGPT feature to help users generate workout programs based on personal goals.
 
 ## Final Product
 
@@ -24,7 +25,10 @@
 
 - React
 - Express
-- Node v14.17.5
+- Node v14 or higher
+- Bootstrap
+- Sass
+- OpenAI
 
 ## Setup
 
